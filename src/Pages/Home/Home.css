@@ -1,0 +1,30 @@
+.banner{
+    background-image: url(../../assets/Home\ Banner.png);
+    height: 400px;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    height: 400;
+    width: 100%;
+    border: 1px solid red;
+    position: relative;
+}
+
+.cta{
+    
+    background-color: var(--paper);
+    padding:  8px 16px;
+    text-decoration: none;
+    font-weight: 600;
+
+    font-family: var(--heading-font);
+    border: 2px solid var(--yellow)
+}
+.cta-wrapper{
+    position: absolute;
+    left: 15%;
+    bottom:15%;
+    padding: 4px;
+    background-color: var(--red);
+    border: 2px solid var(--yellow);
+}
