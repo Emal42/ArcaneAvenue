@@ -1,5 +1,6 @@
 import "./Home.css"
 import { NavLink } from "react-router"
+import SectionDivider from "../../components/SectionDivider/SectionDivider"
 export default function Home() {
 
     return (
@@ -12,6 +13,8 @@ export default function Home() {
 
                 </div>
             </section>
+            <SectionDivider text={"Featured Products"}/>
+            <SectionDivider text={"Latest Listing"} link={"somewhere"} />
         </>
     )
 

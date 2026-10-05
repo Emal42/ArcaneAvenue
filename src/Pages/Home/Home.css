@@ -1,15 +1,12 @@
 .banner{
-    background-image: url(../../assets/Home\ Banner.png);
-    height: 400px;
-    background-size: cover;
-    background-position: center bottom;
+    background-image: url("../../assets/Home Banner.png");
+    background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
-    height: 400;
     width: 100%;
-    border: 1px solid red;
+    aspect-ratio: 16 / 9;   /* match your image's ratio, or omit for auto */
     position: relative;
 }
-
 .cta{
     
     background-color: var(--paper);
