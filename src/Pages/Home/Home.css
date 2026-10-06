@@ -25,3 +25,10 @@
     background-color: var(--red);
     border: 2px solid var(--yellow);
 }
+.products-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
