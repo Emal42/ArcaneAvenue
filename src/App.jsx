@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="main-content test">
+      <main className="main-content test bg-paper">
         <Pages/>
       </main>
       

@@ -1,0 +1,23 @@
+.auth-wrapper{
+    display: flex;
+    gap: 32px;
+    flex: 1;
+}
+
+.auth-image-col{
+    flex: 2;
+
+    >img{
+        width: 100%;
+        height: 100%;
+
+
+        object-fit: cover;
+    }
+}
+.auth-form{
+    flex: 1;
+    border: 2px solid var(--yellow);
+    padding: 32px;
+    border-radius: 16px;
+}
