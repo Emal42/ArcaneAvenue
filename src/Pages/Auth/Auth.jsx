@@ -46,13 +46,13 @@ function LoginForm({ toggleForm }) {
     const [password, setPassword] = useState("")
 
     function handleSubmit(e){
-        e.preventDefult();
+        e.preventDefault();
 
         alert("form submitted")
     }
 
     return (
-        <form className="auth-form">
+        <form  onSubmit={handleSubmit} className="auth-form">
             <div className="Star-row">
                 <img className="auth-star" src={Star} />
             </div>
