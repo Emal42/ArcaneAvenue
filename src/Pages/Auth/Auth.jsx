@@ -35,22 +35,44 @@ function RegisterForm({ toggleForm }) {
     const [confirmPass, setconfirmPass] = useState("")
     const [errorMSG, setErrorMSG] = useState("")
 
-    function handleSubmit(e){
+    async function handleSubmit(e) {
         e.preventDefault();
-
         setErrorMSG("");
 
-        if(password != confirmPass){
-            setErrorMSG("your password is not the same ")
-            return
+        if (password !== confirmPass) {
+            setErrorMSG("Your passwords do not match");
+            return;
         }
 
-        alert("form submitted")
+        try {
+            const response = await fetch("http://127.0.0.1:8000/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    account_type: "buyer"
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setErrorMSG(data.detail || "Registration failed");
+                return;
+            }
+
+            alert("Account created successfully!");
+        } catch (error) {
+            setErrorMSG("Could not connect to the server");
+        }
     }
     return (
         <form onSubmit={handleSubmit} className="auth-form">
-             
-           <div className="Star-row">
+
+            <div className="Star-row">
                 <img className="auth-star" src={Star} />
             </div>
             <SectionDivider text="Login" />
@@ -91,7 +113,7 @@ function RegisterForm({ toggleForm }) {
 
 
             <button type="submit " className="auth-btn">Sign UP</button>
-            { errorMSG ? <p className="Form-err">{errorMSG}</p>: null }
+            {errorMSG ? <p className="Form-err">{errorMSG}</p> : null}
             <div className="form-auction">
                 <p>Alredy have an account</p>
                 <button type="button" onClick={toggleForm} className="form-toggle-btn">Log in</button>
@@ -103,18 +125,40 @@ function RegisterForm({ toggleForm }) {
 function LoginForm({ toggleForm }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMSG, setErrorMSG] = useState("");
 
-    
 
-    function handleSubmit(e){
+    async function handleSubmit(e) {
         e.preventDefault();
-        
+        setErrorMSG("");
 
-        alert("form submitted")
+        try {
+            const response = await fetch("http://127.0.0.1:8000/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setErrorMSG(data.detail || "Login failed");
+                return;
+            }
+
+            alert("Welcome back, " + data.email);
+        } catch (error) {
+            setErrorMSG("Could not connect to the server");
+        }
     }
 
     return (
-        <form  onSubmit={handleSubmit} className="auth-form">
+        <form onSubmit={handleSubmit} className="auth-form">
             <div className="Star-row">
                 <img className="auth-star" src={Star} />
             </div>
@@ -136,12 +180,13 @@ function LoginForm({ toggleForm }) {
                     onChange={(e) => setPassword(e.target.value)} />
             </label>
             <button type="submit " className="auth-btn">Login</button>
+            {errorMSG && <p className="Form-err">{errorMSG}</p>}
             <div className="form-auction">
                 <p>Dont have an account</p>
                 <button type="button" onClick={toggleForm} className="form-toggle-btn">Sign Up</button>
             </div>
 
-            
+
         </form>
     )
 }
