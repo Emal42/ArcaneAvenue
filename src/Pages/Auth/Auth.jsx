@@ -34,7 +34,7 @@ function RegisterForm({ toggleForm }) {
     const [password, setPassword] = useState("")
     const [confirmPass, setconfirmPass] = useState("")
     const [errorMSG, setErrorMSG] = useState("")
-
+    const [accountType, setAccountType] = useState("buyer");
     async function handleSubmit(e) {
         e.preventDefault();
         setErrorMSG("");
@@ -53,7 +53,7 @@ function RegisterForm({ toggleForm }) {
                 body: JSON.stringify({
                     email: email,
                     password: password,
-                    account_type: "buyer"
+                    account_type: accountType
                 })
             });
 
@@ -103,11 +103,24 @@ function RegisterForm({ toggleForm }) {
             <div className="account-type-selector">
                 <label className="account-radio">
                     Buyer
-                    <input type="radio" name="type" />
+                    <input
+                        type="radio"
+                        name="type"
+                        value="buyer"
+                        checked={accountType === "buyer"}
+                        onChange={(e) => setAccountType(e.target.value)}
+                    />
                 </label>
+
                 <label className="account-radio">
                     Seller
-                    <input type="radio" name="type" />
+                    <input
+                        type="radio"
+                        name="type"
+                        value="seller"
+                        checked={accountType === "seller"}
+                        onChange={(e) => setAccountType(e.target.value)}
+                    />
                 </label>
             </div>
 
