@@ -3,6 +3,7 @@ import { useState } from "react";
 import SectionDivider from "../../components/SectionDivider/SectionDivider"
 import AuthBanner from "../../assets/Home Banner.png"
 import Star from "../../assets/Star.png"
+import axios from "axios";
 
 export default function Auth() {
     const [selectedForm, setSelectedForm] = useState("register")
@@ -45,28 +46,19 @@ function RegisterForm({ toggleForm }) {
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
+            const response = await axios.post(
+                "http://127.0.0.1:8000/auth/register",
+                {
+                    email,
+                    password,
                     account_type: accountType
-                })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setErrorMSG(data.detail || "Registration failed");
-                return;
-            }
+                }
+            );
 
             alert("Account created successfully!");
+
         } catch (error) {
-            setErrorMSG("Could not connect to the server");
+            setErrorMSG(error.response?.data?.detail || "Could not connect to server");
         }
     }
     return (
@@ -146,27 +138,18 @@ function LoginForm({ toggleForm }) {
         setErrorMSG("");
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            });
+            const response = await axios.post(
+                "http://127.0.0.1:8000/auth/login",
+                {
+                    email,
+                    password
+                }
+            );
 
-            const data = await response.json();
+            alert("Welcome back, " + response.data.email);
 
-            if (!response.ok) {
-                setErrorMSG(data.detail || "Login failed");
-                return;
-            }
-
-            alert("Welcome back, " + data.email);
         } catch (error) {
-            setErrorMSG("Could not connect to the server");
+            setErrorMSG(error.response?.data?.detail || "Login failed");
         }
     }
 
